@@ -1,0 +1,57 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/artemiy/ontologies/2018/11/untitled-ontology-8#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[SourceDeclaration]
+sourceUri	datasource1
+connectionUrl	jdbc:h2:~/project
+username	sa
+password	
+driverClass	org.h2.Driver
+
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-95af74e031a341beb4a462f1ebdd5305
+target		:project/db1/{carid} :hasManager :project/db1/{managerid} . 
+source		select * from db1.sales
+
+mappingId	urn:MAPID-513dbb482d22453cb5cd945a86c07a63
+target		:project/db1/{carid} a :Car ; :Manufacturer {manufacturer} ; :Model {model} . 
+source		select * from db1.car
+
+mappingId	urn:MAPID-513dbb482d22453cb5cd945a86c07a63(0)
+target		:project/db1/{carid} a :Car ; :Manufacturer {manufacturer} ; :Model {model} ; :Comfort {comfort} . 
+source		select * from db1.comfort
+
+mappingId	urn:MAPID-3157a89a28cf4835b8fca4ac10c57479
+target		:project/db1/{managerid} a :Manager ; :Manager_Name {name} . 
+source		select * from db1.managers
+
+mappingId	urn:MAPID-12a02f8493ca401faa590f5052c2aad3
+target		:project/db2/{id} a :Car ; :Manufacturer {manufacturer} ; :Country {country} ; :Price {avr_price} . 
+source		select * from db2.vehicle
+
+mappingId	urn:MAPID-5524897fde0e41c6a4458d632e8f675b
+target		:project/db2/{id} :Max_Speed {speed} . 
+source		select * from db2.max_speed
+
+mappingId	urn:MAPID-7e60a220d4754f8f93c5dc025ad9d226
+target		:project/db2/{pilotid} a :Pilot ; :Pilot_Name {name} ; :Pilot_Surname {surname} . 
+source		select * from db2.pilots
+
+mappingId	urn:MAPID-fe5d5c21fc4d47c398b15b962c72c1f3
+target		:project/db2/{pilotid} a :Pilot ; :Pilot_Name {name} ; :Pilot_Surname {surname} . 
+source		select * from db2.pilots
+
+mappingId	urn:MAPID-180723a4face4198b91534fd61843fff
+target		:project/db2/{id} :hasPilot :project/db2/{pilotid} . 
+source		select id, pilotid from db2.races
+
+mappingId	urn:MAPID-9c82409ade2c492a9bde04fa455011ca
+target		:project/db2/{winner} a :Winner . 
+source		select pilotid as winner from db2.races where place = 1
+]]
+
